@@ -1,0 +1,238 @@
+
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider = "prisma-client-js"
+    binaryTargets = ["native", "linux-musl-arm64-openssl-3.0.x"]
+    output = "/home/ubuntu/prompt_engineering_workbench/app/node_modules/.prisma/client"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model Prompt {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  framework   String   // Framework categories: "PALS", "CxEP", "Systemic", "RolePrompting", "LensGPT", "Geometric", "MetaCognitive", "QualityAssurance", "CrossDomain", "CreativeResearch"
+  subFramework String? // Specific tools within frameworks
+  content     Json     // Stores the structured prompt data
+  tags        String[] // Enhanced categorization and filtering
+  quality     Int?     // Quality rating 1-5
+  complexity  String?  // "Beginner", "Intermediate", "Advanced", "Expert", "Research"
+  geometricData Json?  // For polygonal grammar and geometric controls
+  recursiveLevel Int? // For meta-recursive structures
+  driftMetrics Json?  // For symbolic drift tracking
+  temporalLayers Json? // For temporal palimpsest data
+  researchMetrics Json? // Advanced analytics data
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@map("prompts")
+}
+
+model Exercise {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  difficulty  String   // "Beginner", "Intermediate", "Advanced", "Expert", "Research"
+  framework   String   // All framework categories including new advanced ones
+  category    String   // "Geometric", "MetaCognitive", "QualityAssurance", "CrossDomain", "CreativeResearch", "Integration"
+  exerciseType String  // "single_framework", "multi_framework", "comparison", "geometric_design", "recursive_optimization", "drift_analysis"
+  content     Json     // Exercise instructions and solution template
+  expectedOutcome Json? // Expected results structure
+  geometricConstraints Json? // For geometric control exercises
+  recursiveDepth Int? // For meta-cognitive exercises
+  evaluationMetrics Json? // Advanced assessment criteria
+  createdAt   DateTime @default(now())
+  
+  userProgress UserProgress[]
+  
+  @@map("exercises")
+}
+
+model FrameworkTemplate {
+  id          String   @id @default(cuid())
+  name        String
+  framework   String   // Framework this template belongs to
+  templateType String  // "persona", "scaffold", "lens", "cascade", etc.
+  content     Json     // Template structure
+  description String?
+  tags        String[]
+  isDefault   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@map("framework_templates")
+}
+
+model AnalysisSession {
+  id            String   @id @default(cuid())
+  name          String
+  frameworks    String[] // List of frameworks used
+  sessionType   String   // "systemic_analysis", "role_engineering", "lens_application", "combined"
+  inputData     Json     // Input prompts, context, etc.
+  results       Json     // Analysis results
+  insights      Json?    // Generated insights
+  status        String   @default("active") // "active", "completed", "archived"
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  @@map("analysis_sessions")
+}
+
+model UserProgress {
+  id         String   @id @default(cuid())
+  exerciseId String
+  completed  Boolean  @default(false)
+  solution   String?
+  score      Int?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  
+  exercise Exercise @relation(fields: [exerciseId], references: [id])
+  
+  @@map("user_progress")
+}
+
+// Advanced Framework Models
+
+model GeometricControl {
+  id            String   @id @default(cuid())
+  name          String
+  polygonType   String   // "triangle", "square", "pentagon", "hexagon", "octagon", "custom"
+  vertices      Json     // Coordinate data for polygon vertices
+  properties    Json     // Geometric properties (angles, sides, symmetry)
+  semanticMap   Json     // Mapping to semantic concepts
+  modalityMap   Json     // Cross-modal translations (visual, audio, tactile)
+  narrative     Json?    // Temporal narrative mapping
+  symbolicLoad  Json?    // Semiotic symbol mappings
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  @@map("geometric_controls")
+}
+
+model MetaRecursiveSession {
+  id                String   @id @default(cuid())
+  name              String
+  sessionType       String   // "optimization", "enhancement", "learning", "architecture"
+  recursiveDepth    Int      @default(1)
+  inputPrompt       String
+  iterationHistory  Json     // Track each recursive iteration
+  performanceMetrics Json    // Quality improvements per iteration
+  convergenceData   Json     // Convergence analysis
+  finalOutput       String?
+  status            String   @default("active") // "active", "converged", "diverged", "stopped"
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  
+  @@map("meta_recursive_sessions")
+}
+
+model SymbolicDriftMonitor {
+  id              String   @id @default(cuid())
+  promptId        String?
+  sessionId       String?
+  driftType       String   // "lexical", "semantic", "contextual", "cultural", "temporal", "structural"
+  severity        String   // "low", "medium", "high", "critical"
+  detectedAt      DateTime
+  originalValue   Json     // Original symbolic meaning
+  driftedValue    Json     // Current drifted state
+  confidenceScore Float    // Detection confidence (0-1)
+  correction      Json?    // Suggested corrections
+  status          String   @default("detected") // "detected", "corrected", "ignored", "false_positive"
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  @@map("symbolic_drift_monitors")
+}
+
+model TemporalPalimpsest {
+  id                String   @id @default(cuid())
+  name              String
+  description       String?
+  temporalLayers    Json     // Layered temporal cognition data
+  metaphorEvolution Json     // TEI, SDC, MFS tracking
+  epochData         Json     // Training epoch analysis
+  cognitiveStates   Json     // Cognitive state transitions
+  fidelityMetrics   Json     // Metaphoric fidelity scores
+  analysisResults   Json?    // Cognitive archaeology results
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  
+  @@map("temporal_palimpsests")
+}
+
+model ContradictionAnalysis {
+  id                 String   @id @default(cuid())
+  name               String
+  analysisType       String   // "recursive", "ethical", "logical", "temporal"
+  inputSystem        Json     // System being analyzed
+  contradictions     Json     // Detected contradictions
+  emergencePattern   Json     // How contradictions emerged
+  invariantViolations Json    // Violated invariants
+  mitigationStrategy Json?    // Suggested fixes
+  severityScore      Float    // Impact severity (0-1)
+  status             String   @default("analyzing") // "analyzing", "resolved", "persistent", "critical"
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+  
+  @@map("contradiction_analyses")
+}
+
+model CrossDomainTranslation {
+  id              String   @id @default(cuid())
+  name            String
+  sourceDomain    String   // Original domain (e.g., "architecture", "fashion", "music")
+  targetDomain    String   // Target domain for translation
+  translationMap  Json     // Domain-specific translation mappings
+  grammarRules    Json     // Compositional grammar rules
+  examples        Json     // Translation examples
+  qualityMetrics  Json     // Translation quality assessment
+  validationData  Json?    // Human validation results
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  @@map("cross_domain_translations")
+}
+
+model PromptPoetry {
+  id               String   @id @default(cuid())
+  title            String
+  description      String?
+  poeticStructure  Json     // Poetic elements (meter, rhyme, imagery)
+  visualElements   Json     // Visual storytelling components
+  emotionalMap     Json     // Emotional resonance mapping
+  narrativeFlow    Json     // Story progression structure
+  imagePrompts     Json     // Generated image prompts
+  refinements      Json     // Iterative improvements
+  tags             String[] // Thematic tags
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  
+  @@map("prompt_poetry")
+}
+
+model ResearchAnalytics {
+  id               String   @id @default(cuid())
+  name             String
+  analysisType     String   // "evaluation", "latent_space", "semiotic", "performance"
+  frameworks       String[] // Frameworks being analyzed
+  inputData        Json     // Research input data
+  mtasScore        Float?   // Multi-dimensional Textual Analysis Score
+  ssiMetrics       Json?    // Semantic Structural Integrity metrics
+  lcmData          Json?    // Latent Conceptual Mapping data
+  semioticInterface Json?   // Semiotic interface analysis
+  perceptualEval   Json?    // Perceptual evaluation results
+  latentGovernance Json?    // Latent space governance data
+  insights         Json?    // Generated research insights
+  visualizations   Json?    // Chart and graph data
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  
+  @@map("research_analytics")
+}
