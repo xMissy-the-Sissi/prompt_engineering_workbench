@@ -104,6 +104,25 @@ prompt_engineering_workbench/
 ├── Uploads/                          # Raw source research documents and corpus inputs
 │
 ├── app/                              # Next.js 15 application
+│   ├── app/
+│   │   ├── api/                      # API routes
+│   │   ├── compare/                  # Framework comparison module
+│   │   ├── creative/                 # Creative prompting workspace
+│   │   ├── cross/                    # Cross-framework integration
+│   │   ├── cxep-simulator/           # Context-to-Execution Pipeline simulator
+│   │   ├── evaluate/                 # Ablation harness and promotion tracker
+│   │   ├── exercises/                # Guided exercises
+│   │   ├── geometric/                # Geometric prompt composition
+│   │   ├── governance/               # Governance Dashboard and Decorator Registry
+│   │   ├── integration/              # Integration mapping tools
+│   │   ├── lens/                     # LensGPT Deep Prompting workspace
+│   │   ├── library/                  # Prompt library
+│   │   ├── meta/                     # Meta-cognitive workspace
+│   │   ├── pals-builder/             # PALS Framework builder
+│   │   ├── quality/                  # Quality evaluation
+│   │   ├── role/                     # Role Prompting workspace
+│   │   ├── stacks/                   # Stack Profile selector
+│   │   ├── systemic/                 # Systemic Analysis workspace
 │   ├── app/                          # App Router pages and layouts
 │   │   ├── api/                      # API routes
 │   │   ├── compare/                  # Framework comparison module
@@ -240,9 +259,10 @@ Contributions that are modular, traceable, systematic, and honest about uncertai
 |---|---|
 | Research corpus | ✅ Established — 3 core documents, 50+ source studies |
 | Framework baseline | ✅ Defined — PALS, CxEP, Systemic, Role, LensGPT |
+| Governance Core | ✅ Defined — PDL, SCOS, Dichotomic Scaffolds |
 | Contribution rules | ✅ Formalized |
 | Application — routing | ✅ 14 module routes implemented |
-| Application — data layer | 🔄 Prisma schema + NextAuth in place |
+| Application — data layer | ✅ Prisma schema (including Governance Core) + NextAuth in place |
 | Application — UI | 🔄 In active development |
 | Deployment | 🔜 Not yet documented |
 
