@@ -91,6 +91,9 @@ export default function LibraryPage() {
     { value: 'name', label: 'Name' }
   ];
 
+
+  const getMs = (date: Date | string) => typeof date === 'string' ? Date.parse(date) : date.getTime();
+
   const filteredPrompts = prompts
     .filter(prompt => {
       const matchesSearch = prompt.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -103,10 +106,10 @@ export default function LibraryPage() {
         case 'name':
           return a.name.localeCompare(b.name);
         case 'created':
-          return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+          return getMs(b.createdAt) - getMs(a.createdAt);
         case 'updated':
         default:
-          return new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime();
+          return getMs(b.updatedAt) - getMs(a.updatedAt);
       }
     });
 
