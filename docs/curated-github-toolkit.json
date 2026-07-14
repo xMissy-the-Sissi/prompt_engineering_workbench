@@ -1,0 +1,177 @@
+{
+  "schema_version": "1.0",
+  "updated": "2026-07-14",
+  "purpose": "Machine-readable acquisition and evaluation manifest for GitHub repositories relevant to Prompt Engineering Workbench and OmniSpark.",
+  "repositories": [
+    {
+      "repository": "google-labs-code/design.md",
+      "url": "https://github.com/google-labs-code/design.md",
+      "decision": "acquire_now",
+      "mode": "reference_and_adapt",
+      "priority": 1,
+      "purpose": "Create a persistent design-system specification for coding agents.",
+      "risk": "low"
+    },
+    {
+      "repository": "openai/plugins",
+      "url": "https://github.com/openai/plugins",
+      "decision": "acquire_now",
+      "mode": "selective_plugin_install",
+      "priority": 2,
+      "purpose": "Official OpenAI Codex plugin examples and workflows.",
+      "risk": "low_to_moderate"
+    },
+    {
+      "repository": "Leonxlnx/taste-skill",
+      "url": "https://github.com/Leonxlnx/taste-skill",
+      "decision": "acquire_now",
+      "mode": "review_then_install_skill",
+      "priority": 3,
+      "purpose": "Improve visual quality and reduce generic AI-generated interfaces.",
+      "risk": "moderate"
+    },
+    {
+      "repository": "mvanhorn/last30days-skill",
+      "url": "https://github.com/mvanhorn/last30days-skill",
+      "decision": "acquire_now",
+      "mode": "review_then_install_skill",
+      "priority": 4,
+      "purpose": "Recent-topic research across social, video, developer, and web sources.",
+      "risk": "moderate"
+    },
+    {
+      "repository": "vsouza/awesome-ios",
+      "url": "https://github.com/vsouza/awesome-ios",
+      "decision": "acquire_now",
+      "mode": "bookmark",
+      "priority": 5,
+      "purpose": "iOS and Swift development reference catalog.",
+      "risk": "low"
+    },
+    {
+      "repository": "vinta/awesome-python",
+      "url": "https://github.com/vinta/awesome-python",
+      "decision": "acquire_now",
+      "mode": "bookmark",
+      "priority": 6,
+      "purpose": "Python development reference catalog.",
+      "risk": "low"
+    },
+    {
+      "repository": "supermemoryai/supermemory",
+      "url": "https://github.com/supermemoryai/supermemory",
+      "decision": "pilot_later",
+      "mode": "isolated_sample_data_pilot",
+      "priority": 7,
+      "purpose": "Long-term memory and context retrieval for AI applications.",
+      "risk": "high_if_connected_to_personal_archive"
+    },
+    {
+      "repository": "mnfst/manifest",
+      "url": "https://github.com/mnfst/manifest",
+      "decision": "pilot_later",
+      "mode": "isolated_low_privilege_pilot",
+      "priority": 8,
+      "purpose": "Multi-provider AI routing through an OpenAI-compatible endpoint.",
+      "risk": "moderate_to_high"
+    },
+    {
+      "repository": "scrapy/scrapy",
+      "url": "https://github.com/scrapy/scrapy",
+      "decision": "pilot_later",
+      "mode": "single_site_narrow_scope_pilot",
+      "priority": 9,
+      "purpose": "Structured web crawling and data extraction.",
+      "risk": "moderate"
+    },
+    {
+      "repository": "appsmithorg/appsmith",
+      "url": "https://github.com/appsmithorg/appsmith",
+      "decision": "pilot_later",
+      "mode": "isolated_dashboard_pilot",
+      "priority": 10,
+      "purpose": "Low-code control panels and internal tools.",
+      "risk": "moderate"
+    },
+    {
+      "repository": "Panniantong/Agent-Reach",
+      "url": "https://github.com/Panniantong/Agent-Reach",
+      "decision": "pilot_later",
+      "mode": "test_accounts_only",
+      "priority": 11,
+      "purpose": "Cross-platform web research for command-line agents.",
+      "risk": "high_if_using_primary_cookies"
+    },
+    {
+      "repository": "tashfeenahmed/freellmapi",
+      "url": "https://github.com/tashfeenahmed/freellmapi",
+      "decision": "pilot_later",
+      "mode": "separate_low_privilege_api_keys",
+      "priority": 12,
+      "purpose": "Pool free LLM provider allowances behind one endpoint.",
+      "risk": "high_if_using_primary_provider_credentials"
+    },
+    {
+      "repository": "awesome-selfhosted/awesome-selfhosted",
+      "url": "https://github.com/awesome-selfhosted/awesome-selfhosted",
+      "decision": "bookmark",
+      "mode": "reference_only",
+      "priority": 13,
+      "purpose": "Self-hosted software discovery catalog.",
+      "risk": "low"
+    },
+    {
+      "repository": "sindresorhus/awesome",
+      "url": "https://github.com/sindresorhus/awesome",
+      "decision": "bookmark",
+      "mode": "reference_only",
+      "priority": 14,
+      "purpose": "Master directory of curated topic lists.",
+      "risk": "low"
+    },
+    {
+      "repository": "521xueweihan/HelloGitHub",
+      "url": "https://github.com/521xueweihan/HelloGitHub",
+      "decision": "bookmark",
+      "mode": "reference_only",
+      "priority": 15,
+      "purpose": "Open-source project discovery.",
+      "risk": "low"
+    },
+    {
+      "repository": "harry0703/MoneyPrinterTurbo",
+      "url": "https://github.com/harry0703/MoneyPrinterTurbo",
+      "decision": "bookmark",
+      "mode": "future_media_pilot",
+      "priority": 16,
+      "purpose": "Automated short-video production experiments.",
+      "risk": "moderate"
+    },
+    {
+      "repository": "calesthio/OpenMontage",
+      "url": "https://github.com/calesthio/OpenMontage",
+      "decision": "bookmark",
+      "mode": "future_media_pilot",
+      "priority": 17,
+      "purpose": "Agentic video-production workflows.",
+      "risk": "moderate_to_high"
+    },
+    {
+      "repository": "mukul975/Anthropic-Cybersecurity-Skills",
+      "url": "https://github.com/mukul975/Anthropic-Cybersecurity-Skills",
+      "decision": "bookmark",
+      "mode": "selected_defensive_references_only",
+      "priority": 18,
+      "purpose": "Defensive security checklists and framework-mapped reference material.",
+      "risk": "high_if_bulk_installed_or_used_offensively"
+    }
+  ],
+  "global_rules": [
+    "Do not bulk-install repositories.",
+    "Use sample data and test accounts for first pilots.",
+    "Use low-privilege separate API keys.",
+    "Record the exact commit or release tested.",
+    "Document removal and rollback steps.",
+    "Do not connect personal archives or primary account cookies before review."
+  ]
+}
