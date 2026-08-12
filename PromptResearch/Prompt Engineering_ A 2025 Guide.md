@@ -152,7 +152,7 @@ The ad-hoc nature of early prompt development has led to the **"Promptware Crisi
 
 * **Definition:** "Promptware" refers to software where natural language prompts serve as the primary programming interface.  
 * **Technical Debt:** Unlike compiled code, promptware is non-deterministic and ambiguous. "Prompt Spaghetti"—unmaintainable chains of complex, interdependent prompts—creates massive technical debt. A slight change in the underlying model (e.g., updating from GPT-4 to GPT-5) can silently break these prompts, a phenomenon known as **Prompt Drift**.6  
-* **SATD (Self-Admitted Technical Debt):** Research shows that significant technical debt in LLM applications stems from prompt configuration and optimization issues, particularly in instruction-based and few-shot prompts. Teams often leave "TODO: fix this prompt later" comments, leading to fragile systems that are terrifying to update.36
+* **SATD (Self-Admitted Technical Debt):** Research shows that significant technical debt in LLM applications stems from prompt configuration and optimization issues, particularly in instruction-based and few-shot prompts. Teams often leave "TO-DO: fix this prompt later" comments, leading to fragile systems that are terrifying to update.36
 
 ### **4.2 Security and Adversarial Prompting**
 
