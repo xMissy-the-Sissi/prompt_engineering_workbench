@@ -20,6 +20,12 @@ async function main() {
   await prisma.analysisSession.deleteMany();
   await prisma.frameworkTemplate.deleteMany();
   await prisma.prompt.deleteMany();
+  await prisma.analysisRun.deleteMany();
+  await prisma.frameworkArtifact.deleteMany();
+  await prisma.ablationResult.deleteMany();
+  await prisma.stackProfile.deleteMany();
+  await prisma.compatibilityEdge.deleteMany();
+  await prisma.decoratorNode.deleteMany();
 
   console.log('📝 Seeding Core Framework Prompts...');
 
@@ -1157,6 +1163,156 @@ async function main() {
         status: "completed"
       }
     ]
+  });
+
+  console.log('🛡️ Seeding Governance Core Data...');
+
+  const privilegeNode = await prisma.decoratorNode.create({
+    data: {
+      className: "Privilege",
+      ring: 0,
+      syntax: "+++PRIVILEGE[level=ROOT]",
+      mechanism: "Enforces strict authorization level and prevents privilege escalation during prompt execution",
+      nullBaselineTrigger: "Instruction-Hierarchy Collapse",
+      metabolicROI: "High (0.95)",
+      orthogonalityConfidence: "DIRECT",
+      evidenceRefs: ["PDL-v1.2-Spec", "SCOS-Ring0-Policy"],
+      activationTier: "Foundation"
+    }
+  });
+
+  const secBoundaryNode = await prisma.decoratorNode.create({
+    data: {
+      className: "Security Boundary",
+      ring: 0,
+      syntax: "+++SECURITY_BOUNDARY[mode=STRICT]",
+      mechanism: "Isolates context execution to prevent prompt injection and data exfiltration",
+      nullBaselineTrigger: "Security-Boundary Breach",
+      metabolicROI: "High (0.92)",
+      orthogonalityConfidence: "DIRECT",
+      evidenceRefs: ["DRP-SEC-2026", "POSIX-Ring0-Mapping"],
+      activationTier: "Security"
+    }
+  });
+
+  const workflowNode = await prisma.decoratorNode.create({
+    data: {
+      className: "Workflow Orchestration",
+      ring: 1,
+      syntax: "+++WORKFLOW_ROUTE[pattern=PetzoldSequence]",
+      mechanism: "Coordinates multi-stage execution pipelines with explicit dependency tracking",
+      nullBaselineTrigger: "Stage Collapse",
+      metabolicROI: "Medium (0.85)",
+      orthogonalityConfidence: "DIRECT",
+      evidenceRefs: ["Activation-Tier-Map-v1.2"],
+      activationTier: "Orchestration"
+    }
+  });
+
+  const sessionNode = await prisma.decoratorNode.create({
+    data: {
+      className: "Session Control",
+      ring: 2,
+      syntax: "+++CONTEXT_LOCK[ttl=3600]",
+      mechanism: "Maintains temporal coherence and state persistence across long-horizon interactions",
+      nullBaselineTrigger: "Context Rot",
+      metabolicROI: "Medium (0.80)",
+      orthogonalityConfidence: "INFERRED",
+      evidenceRefs: ["CE-2.0-Design"],
+      activationTier: "Interaction"
+    }
+  });
+
+  await prisma.compatibilityEdge.createMany({
+    data: [
+      {
+        fromId: privilegeNode.id,
+        toId: secBoundaryNode.id,
+        edgeType: "REQUIRES",
+        condition: "Ring 0 initialization",
+        rationale: "Privilege enforcement requires security boundary containment"
+      },
+      {
+        fromId: secBoundaryNode.id,
+        toId: workflowNode.id,
+        edgeType: "HARD_MUTEX",
+        condition: "Unsanitized workflow input",
+        rationale: "Workflow execution cannot bypass security boundary isolation"
+      }
+    ]
+  });
+
+  const minSecProfile = await prisma.stackProfile.create({
+    data: {
+      name: "Minimal-Security",
+      persona: "Production System Administrator",
+      decoratorSet: [privilegeNode.id, secBoundaryNode.id],
+      evaluationCriteria: {
+        securityLevel: "Ring 0",
+        isolation: "Strict",
+        metabolicCost: "Minimal"
+      },
+      failureTriggers: {
+        unauthorizedEscalation: "Immediate Termination",
+        boundaryBreach: "Alert & Contain"
+      }
+    }
+  });
+
+  await prisma.stackProfile.create({
+    data: {
+      name: "Research-Grade",
+      persona: "Cognitive AI Researcher",
+      decoratorSet: [privilegeNode.id, secBoundaryNode.id, workflowNode.id, sessionNode.id],
+      evaluationCriteria: {
+        securityLevel: "Ring 0-2",
+        reproducibility: "High",
+        statePersistence: "Enabled"
+      },
+      failureTriggers: {
+        contextRot: "Re-inject ContextLock",
+        stageCollapse: "Fallback to PetzoldSequence"
+      }
+    }
+  });
+
+  await prisma.ablationResult.create({
+    data: {
+      stackId: minSecProfile.id,
+      ablatedClass: "Security Boundary",
+      failureMode: "Security-Boundary Breach",
+      severity: "CRITICAL",
+      recoveryNotes: "Re-instantiate Security Boundary decorator at Ring 0",
+      promotionStatus: "PROMOTED"
+    }
+  });
+
+  await prisma.frameworkArtifact.create({
+    data: {
+      name: "PDL / SCOS Governance Core",
+      type: "Super-Framework",
+      complexityTier: "Expert",
+      sourceDocIds: ["PDL-Decorator-Class-Expansion-Deep-Dive.md", "activation_tier_map_v1.2.md"],
+      integrationPoints: ["/governance", "/pals-builder", "/cxep-simulator"],
+      uncertaintyNotes: "SAE latent mapping remains experimental pending empirical validation"
+    }
+  });
+
+  await prisma.analysisRun.create({
+    data: {
+      corpusId: "DRP-PEW-INTEGRATION-2026-06-AU-01",
+      baselineVersion: "v1.2",
+      extractedArtifacts: {
+        count: 12,
+        superFrameworks: 3
+      },
+      generatedCatalog: {
+        decorators: 42,
+        classes: 7,
+        rings: 4
+      },
+      reviewStatus: "APPROVED"
+    }
   });
 
   console.log('✅ Seed completed successfully!');
